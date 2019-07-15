@@ -1,0 +1,10 @@
+version: '3'
+
+services:
+  python_occ:
+    build: .
+    command: python app.py
+    volumes:
+      - .:/code
+    ports:
+      - "5000:5000"
