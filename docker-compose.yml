@@ -2,8 +2,12 @@ version: '3'
 
 services:
   python_occ:
-    build: .
-    command: python app.py
+    restart: always
+    container_name: step2stl
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    # command: python app.py
     volumes:
       - .:/code
     ports:

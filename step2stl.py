@@ -35,9 +35,10 @@ def write_stl(shape, filename, definition=0.1):
 
     stl_writer.Write(shape, stl_file)
     assert os.path.isfile(stl_file)
+    return stl_file
 
 
-shape = read_step('example.step')
+# shape = read_step('example.step')
 
-write_stl(shape, 'example.stl')
+# write_stl(shape, 'example.stl')
 
