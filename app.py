@@ -1,6 +1,7 @@
-from flask import Flask, request, send_file
+from flask import Flask, request, send_file, after_this_request
 import urllib
 from step2stl import read_step, write_stl
+import os
 import time
 import requests
 app = Flask(__name__)
@@ -28,7 +29,18 @@ def convert_to_stl():
         f.write(r.content)
     shape = read_step(path)
     file_output = 'files/output/{}'.format(file_name.replace('.step', '.stl'))
+    print('generating file')
     write_stl(shape, file_output)
+    print('file generated')
+    # remove files
+    @after_this_request
+    def remove_files(response):
+        try:
+            os.remove(path)
+            os.remove(file_output)
+        except Exception as err:
+            app.logger.error('Error removing files')
+        return response
     return send_file(file_output, as_attachment=True)
     # return {'hello': 'world'} 
 
