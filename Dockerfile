@@ -14,5 +14,6 @@ RUN curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
 RUN python get-pip.py
 RUN pip install -r requirements.txt
 COPY . /code/
-ENTRYPOINT ["python"]
-CMD ["app.py"]
+# ENTRYPOINT ["python"]
+# CMD ["app.py"]
+CMD gunicorn app:app --bind 0.0.0.0:$PORT --reload

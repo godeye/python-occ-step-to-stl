@@ -1,3 +1,4 @@
+gunicorn==19.9.0
 aniso8601==7.0.0
 aocutils==0.3.0
 aocxchange==0.3.0
@@ -14,7 +15,7 @@ Jinja2==2.10.1
 MarkupSafe==1.1.1
 numpy==1.8.2
 pexpect==3.1
-Pillow==2.3.0
+Pillow>=3.3.2
 pytz==2019.1
 requests==2.22.0
 simplegeneric==0.8.1
