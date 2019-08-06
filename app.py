@@ -28,7 +28,7 @@ def convert_to_stl():
     with open(path, 'wb') as f:
         f.write(r.content)
     shape = read_step(path)
-    file_output = 'files/output/{}'.format(file_name.replace('.step', '.stl'))
+    file_output = 'files/output/{}'.format(file_name.replace('.step','.stl').replace('.STEP', '.stl'))
     print('generating file')
     write_stl(shape, file_output)
     print('file generated')
