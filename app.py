@@ -4,35 +4,43 @@ from step2stl import read_step, write_stl
 import os
 import time
 import requests
+import urllib
+
 app = Flask(__name__)
 
 # api = Api(app)
 
-@app.route('/')
+@app.route('/', methods=['POST'])
 def convert_to_stl():
-    url = request.args.get('url')
+    content = request.json
+    url = content['url']
     if not url:
         return {'fail': 'not valid url'} 
+
+    print('url s3')
     print(url)
+    print(urllib.unquote(url))
     file_name = url.split('/')[-1]
     print(file_name)
     # step_file = urllib.urlretrieve(url)
-    r = requests.get(url, verify=False)
-    path = 'files/{}'.format(file_name)
+    r = requests.get(url)
+    path = 'input.step'
     # urllib.urlretrieve(url, path)
     # step_file = r.content
     # file_id = 'files/' + str(int(time.time())) + '.step'
     # with open('files/%s'.format(file_name), 'wb') as output:
         # output.write(step_file.read())
+    print('path')    
     print(path)
-    with open(path, 'wb') as f:
+    with open('input.step', 'wb') as f:
         f.write(r.content)
-    shape = read_step(path)
-    file_output = 'files/output/{}'.format(file_name.replace('.step','.stl').replace('.STEP', '.stl'))
+    shape = read_step('input.step')
+    file_output = 'output.stl'
     print('generating file')
     write_stl(shape, file_output)
     print('file generated')
     # remove files
+
     @after_this_request
     def remove_files(response):
         try:
